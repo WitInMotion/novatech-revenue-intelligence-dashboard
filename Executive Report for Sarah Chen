@@ -1,0 +1,67 @@
+ NovaTech Revenue Intelligence Dashboard
+ Written Report for VP Sarah Chen
+
+Prepared by: Habiba Musa  
+Date: 06/09/2026  
+
+ Executive Summary
+
+NovaTech's sales, marketing, and customer-support information is distributed across separate datasets. The Revenue Intelligence Dashboard brings these sources together around `account_id` so leadership can evaluate growth, pipeline performance, and customer health in one workflow.
+
+The dashboard contains three views: Marketing Funnel, Sales Pipeline, and Customer Health. It is designed to support recurring leadership reviews while Amazon Quick Q supports fast, natural-language follow-up questions.
+
+ Data Strategy
+
+The project uses three structured datasets:
+
+- CRM Deals: 499 rows covering deal stages, deal values, sales representatives, products, and close outcomes.
+- Marketing Campaigns: 2,240 rows covering campaign channels, spend, responses, funnel stages, and attributed revenue.
+- Support Tickets: 3,000 rows covering ticket type, priority, sentiment, resolution time, and account activity.
+
+The datasets share `account_id`, which makes account-level analysis possible. The unified account dataset was used for the dashboard so sales, marketing, and support information could be reviewed together.
+
+Important data-quality observations were documented during verification. Marketing contains 150 account IDs that do not appear in CRM, support contains 204 such IDs, marketing has 24 missing annual-income values, and 59 support tickets have no resolved date because they remain unresolved. These limitations should be considered when interpreting cross-functional account metrics.
+
+ Design Rationale
+
+The dashboard was organized around the decisions Sarah Chen needs to make:
+
+1. Marketing Funnel: identifies which channels and campaigns generate responses, conversions, and attributed revenue.
+2. Sales Pipeline: shows deal outcomes, revenue by stage, win rate, average deal size, and loss reasons.
+3. Customer Health: highlights ticket volume, resolution time, sentiment, and accounts that may need intervention.
+
+Filters for account, date, campaign channel, deal stage, and support priority allow users to move from a company-wide summary to a focused account review. Connecting the views through `account_id` supports questions such as whether a high-value customer also has unusually high support demand.
+
+ Topic Effects
+
+The configured Amazon Quick Topics and knowledge bases affect how Q interprets natural-language questions. The CRM Topic supports questions about deal stages, revenue, win rate, and loss reasons. The Marketing Topic supports campaign, channel, spend, response, and conversion questions. The Support Topic supports ticket volume, priority, sentiment, and resolution-time questions. The Company Background Topic provides business context rather than operational metrics.
+
+Selecting the correct Topic or dataset improved answer relevance and made it easier to compare Q's response with the matching dashboard visual. Broad questions using **All data** were useful for exploration, but they sometimes required clarification about definitions such as conversion, revenue, or unresolved tickets. For reliable reporting, the source and metric definition should be stated in the question.
+
+ Key Insights
+
+The following are the key findings. 
+- Marketing: Direct Mail had the strongest response rate in the source data at approximately 53.02% when response is defined by `campaign_response`. This should be reviewed alongside campaign cost and attributed revenue before reallocating budget.
+- Sales: CRM contains 315 won deals and 184 lost deals. The sales team should focus on the segments and products that combine strong won revenue with a healthy win rate.
+- Customer health: Critical tickets averaged approximately 56.6 hours to resolve and low-priority tickets approximately 59.42 hours among resolved tickets. If urgent tickets are not resolved faster, escalation and staffing processes should be reviewed.
+- Account risk: Accounts with substantial deal revenue and heavy support volume should receive proactive Customer Success attention because service friction may threaten retention or expansion.
+- Campaign efficiency: The source data indicates that campaigns should be checked for negative return when attributed revenue is compared with campaign spend. Marketing should validate attribution before increasing investment in underperforming campaigns.
+
+ Amazon Quick Q Compared with the Dashboard
+
+Q and the dashboard serve different purposes. Q is useful for quick, ad-hoc questions and follow-up exploration. It allows a user to ask for a particular comparison without first changing dashboard filters. The dashboard is better for recurring leadership meetings because it presents consistent metrics, shared filters, and visual comparisons in a fixed structure.
+
+In the Q exploration, Q agreed with the dashboard on everything, most likely because of different aggregation levels, missing values, unresolved tickets, or ambiguity in the word conversion. The dashboard should be treated as the primary source for recurring KPI review, while Q is useful for discovery and investigation.
+
+ Recommendations
+
+1. Review campaign spend and attribution for campaigns with negative return before expanding their budgets.
+2. Create a proactive account-review process for high-value accounts with high support volume or negative sentiment.
+3. Review critical-ticket escalation and ownership because urgent tickets should normally receive faster attention than low-priority tickets.
+4. Standardize definitions for conversion, attributed revenue, win rate, and resolution time so Q and dashboard results remain comparable.
+5. Resolve or clearly label orphan account IDs before using account-level metrics for major decisions.
+
+ Conclusion
+
+The Revenue Intelligence Dashboard provides NovaTech with a single view of marketing performance, sales outcomes, and customer health. Combining the dashboard with Topic-aware Q exploration gives Sarah Chen both a dependable recurring report and a flexible way to investigate emerging questions.
+
